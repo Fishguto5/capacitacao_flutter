@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "829391883055",
+    "project_id": "lima-s-pizza",
+    "storage_bucket": "lima-s-pizza.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829391883055:android:2b0e7b72a6d7d0d1016fda",
+        "android_client_info": {
+          "package_name": "com.example.capacitacao_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBddJ-PKMi8shhDTSJTgMYL8QZyrjJVtqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829391883055:android:703df01243bdeb28016fda",
+        "android_client_info": {
+          "package_name": "com.example.capacitation_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBddJ-PKMi8shhDTSJTgMYL8QZyrjJVtqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829391883055:android:034b04dacd3f4bd3016fda",
+        "android_client_info": {
+          "package_name": "com.example.limas_pizza"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBddJ-PKMi8shhDTSJTgMYL8QZyrjJVtqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
