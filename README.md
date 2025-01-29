@@ -15,6 +15,7 @@ Depois de escrever o nome do projeto NÃO apertem ENTER!!!!
 7º Passo - Aperte em Plataforms e deixa as opções de Android, IOS e Web selecionadas apenas (isso faz com que o projeto tenha compatibilidade apenas oa tipos de aplicações que escolhemos)
 ![image](https://github.com/user-attachments/assets/849a2d4e-5ddd-4a4e-9673-cc1cac4eb617)
 *obs: Há outras coisas que podem ser alteradas como domínio da organização, preferência de linguagem e outras coisas, mas para nós a principal é a da Plataforms
+
 8º Passo - Basta apertar o botão esc do teclado, verifique se o nome do projeto está correto, caso não esteja só nomear novamente e aperta o botão Enter do teclado
 
 
