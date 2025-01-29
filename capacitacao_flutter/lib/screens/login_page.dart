@@ -9,25 +9,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPage extends State<LoginPage> {
-  late NetworkImage appear_password;
   bool state_icon_password = true;
 
   void initState(){
     super.initState();
-    appear_password = NetworkImage("https://cdn-icons-png.flaticon.com/128/709/709612.png");
   }
 
    void changeIconPassword (){
     setState(() { //o setState diz ao Flutter que o estado de alguma variável foi alterado e é necessário rederinzar tal estado novamente
-      if (state_icon_password == false){
-      appear_password = NetworkImage("https://cdn-icons-png.flaticon.com/128/709/709612.png");
-      state_icon_password = true;
-      print("Icon foi tocado");
-    }else{
-      appear_password = NetworkImage("https://cdn-icons-png.flaticon.com/128/2767/2767146.png");
-      state_icon_password = false;
-      print("Icon foi tocado");
-    }
+     state_icon_password = !state_icon_password;
     });
     
   }
@@ -93,15 +83,19 @@ class _LoginPage extends State<LoginPage> {
                   color: Color.fromRGBO(214, 221, 228, 1),
                   borderRadius: BorderRadius.circular(40)
                 ),
+                child: TextFormField(
+                  textAlign: TextAlign.left,
+                  decoration: InputDecoration(
+                    hintText: "Usuário",
+                    hintStyle: TextStyle(
+                      color: Color.fromRGBO(112, 118, 124, 1),
+                      fontSize: screenHeight*20/932,
+                    ),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.only(left: 27*screenWidth/430, top: 15*screenHeight/932),
+                  ),
+                ),
               )),
-              Positioned(
-                top:518*screenHeight/932,
-                left: 63*screenWidth/430,
-              child:Text("Usuário", 
-              style: GoogleFonts.inter(
-                fontSize: 20*screenHeight/932,
-                fontWeight: FontWeight.w400,
-              ),) )
             ],
           ),
           Stack(
@@ -116,21 +110,28 @@ class _LoginPage extends State<LoginPage> {
                   color: Color.fromRGBO(214, 221, 228, 1),
                   borderRadius: BorderRadius.circular(40)
                 ),
+                child:TextFormField(
+                  textAlign: TextAlign.left,
+                  decoration: InputDecoration(
+                    hintText: "Senha",
+                    hintStyle: TextStyle(
+                      color: Color.fromRGBO(112, 118, 124, 1),
+                      fontSize: screenHeight*20/932,
+                    ),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.only(left: 27*screenWidth/430, top: 15*screenHeight/932),
+                    suffixIcon: Padding(
+                      padding: EdgeInsets.only(right: 23*screenWidth/430, top:13*screenHeight/932 ),
+                      child: GestureDetector(
+                        onTap: changeIconPassword,
+                      child: Icon(state_icon_password ? Icons.visibility : Icons.visibility_off, color: Colors.black,),
+                      ),
+                    )
+                  ),
+                  obscureText: state_icon_password,
+                ),
               )),
-              Positioned(
-                top: 598*screenHeight/932,
-                left: 63*screenWidth/430,
-                child:Text("Senha", style: GoogleFonts.inter(
-                  fontSize: 20*screenHeight/932,
-                  fontWeight: FontWeight.w400
-                ),) ),
-              Positioned(
-                top:594*screenHeight/932,
-                right:58*screenWidth/430,
-                child: GestureDetector(
-                  onTap: () => changeIconPassword(),
-                  child:Image(image: appear_password, height: 31*screenHeight/932,width: 31*screenWidth/430,) ,
-                ))
+              
             ],
           ),
           Stack( //Enter button
@@ -138,7 +139,9 @@ class _LoginPage extends State<LoginPage> {
               Positioned(
               top:672*screenHeight/932,
               left:134*screenWidth/430,
-              child: Container(
+              child: GestureDetector(
+                onTap: () => print("Botão está funfando"),
+                child: Container(
                 height:screenHeight*58/932,
                 width: screenWidth*163/430,
                 decoration: BoxDecoration( //para estilizar container's no flutter usamos esse atributo "decoration" e a classe "BoxDecoration" 
@@ -148,16 +151,16 @@ class _LoginPage extends State<LoginPage> {
                 border: Border.all( //altera a estilização da borda do botão, aqui podemos estamos alterando a cor da borda, 
                 //mas podemos mudar outras coisas, basta apertar "ctrl + space" para ver as opções disponíveis
                   color: Color.fromRGBO(0, 140, 69, 1)
-                )
-                ))),
-              Positioned(
-                top:686*screenHeight/932,
-                left:180*screenWidth/430,
-                child: Text("Entrar", style: GoogleFonts.inter(
+                )),
+                child: Padding(
+                  padding:EdgeInsets.only(left: 46*screenWidth/430,top: 14*screenHeight/932),
+                  child:Text("Entrar", style: GoogleFonts.inter(
                   fontSize: screenHeight*24/932,
                   fontWeight: FontWeight.w500,
                   color: Color.fromRGBO(244, 249, 255, 1)
-                ),))
+                ),))),
+              ) 
+              )
             ],
           )
         ],
