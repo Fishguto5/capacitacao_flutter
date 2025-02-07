@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:limas_pizza/screens/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:limas_pizza/screens/menu.dart';
+import 'package:limas_pizza/screens/edit_product.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //  Inicializa o binding
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: LoginPage(), // 🏠 Define a tela inicial
+      home: MenuPage(), // 
     );
   }
 }

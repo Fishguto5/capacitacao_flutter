@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:limas_pizza/login_firebase.dart';
-
+import 'package:limas_pizza/firebase/login_firebase.dart';
+import 'package:limas_pizza/screens/sign_up_page.dart';
+import 'package:limas_pizza/screens/menu.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -10,6 +11,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPage extends State<LoginPage> {
+  // ignore: non_constant_identifier_names
   bool state_icon_password = true;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -22,8 +24,8 @@ class _LoginPage extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: Stack(
@@ -45,6 +47,15 @@ class _LoginPage extends State<LoginPage> {
             child: Image.asset(
               "images/green_points.png",
               height: 100 * screenHeight / 932,
+            ),
+          ),
+           Positioned(
+            bottom: 660 * screenHeight / 932,
+            left: 74 * screenWidth / 430,
+            child: Image.asset(
+              "images/complement_logo.png",
+              height: 240 * screenHeight / 932,
+              width: 281.5 * screenWidth / 430,
             ),
           ),
           // Logo
@@ -168,7 +179,13 @@ class _LoginPage extends State<LoginPage> {
                 final email = _emailController.text;
                 final password = _passwordController.text;
                 if (email.isNotEmpty && password.isNotEmpty) {
-                  loginUser(email, password);
+                  bool stateAuth = await loginUser(email, password);
+                  if (stateAuth){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) =>const MenuPage() ));
+                  }
+                } else{
+                  ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Por favor, preencha todos os campos.')),);
                 }
               },
               child: Container(
@@ -194,6 +211,22 @@ class _LoginPage extends State<LoginPage> {
               ),
             ),
           ),
+          Positioned(
+            top: 750 * screenHeight / 932,
+            left: 120*screenWidth/430,
+            child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SignUpPage())
+              );
+            },
+            child: Text("Não tenho conta ainda!", 
+            style: TextStyle(
+              fontSize: 20 * screenHeight / 932,
+              decoration: TextDecoration.underline
+            ),),
+          ))
         ],
       ),
     );
