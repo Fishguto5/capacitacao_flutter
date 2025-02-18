@@ -3,6 +3,7 @@ import 'package:limas_pizza/components/admin/navigation_bar_admin.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:limas_pizza/height_text.dart';
 import 'package:limas_pizza/firebase/update_products.dart';
+import 'package:limas_pizza/firebase/get_producuts.dart';
 class EditProduct extends StatefulWidget {
   final String pizzaName;
   final String pizzaDescription;
@@ -20,9 +21,18 @@ class EditProduct extends StatefulWidget {
 }
 
 class _EditProductState extends State<EditProduct> {
-  String ? newTextTitle;
-  String ? newTextIngredients;
-  String ? newTextSize;
+  late String newTextTitle;
+  late String newTextIngredients;
+  late String newTextSize;
+
+  @override
+  void initState() {
+    super.initState();
+    newTextTitle = widget.pizzaName;
+    newTextIngredients = widget.pizzaDescription;
+    newTextSize = widget.pizzaSize;
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -185,11 +195,13 @@ class _EditProductState extends State<EditProduct> {
                     left: 288*screenWidth/430
                   ),
                   child:GestureDetector(
-                    onTap: (){
-                    print(newTextTitle!);
-                    print(newTextIngredients!);
-                    print(newTextSize!);
-                    updateProduct(widget.id, newTextTitle ?? widget.pizzaName, newTextIngredients ?? widget.pizzaDescription, newTextSize ?? widget.pizzaSize);
+                    onTap: () async{
+                    await updateProduct(
+                      widget.id, 
+                      newTextTitle , 
+                      newTextIngredients, 
+                      newTextSize);
+                      Navigator.pop(context, true);
                   },
                   child: Icon(Icons.check_circle_outlined,
                     size: 50*screenHeight/932,

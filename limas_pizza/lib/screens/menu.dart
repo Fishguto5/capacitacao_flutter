@@ -102,11 +102,18 @@ class _MenuPageState extends State<MenuPage> {
                           itemCount: products.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
-                              onTap: (){
+                              onTap: () async{
                                 print("Rota para produto selecionado");
-                                Navigator.push(
+                                final result = await Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => DescriptionProduct(tastePizza: products[index]['name'] ?? 'Sem nome', descriptionPizza: products[index]['ingredients'] ?? 'Sem ingredientes',sizePizza: products[index]['size'] ?? 'Sem tamanho',id: products[index]['id'],)));
+                                  MaterialPageRoute(builder: (context) => DescriptionProduct(
+                                    tastePizza: products[index]['name'] ?? 'Sem nome', 
+                                    descriptionPizza: products[index]['ingredients'] ?? 'Sem ingredientes',
+                                    sizePizza: products[index]['size'] ?? 'Sem tamanho',
+                                    id: products[index]['id'],)));
+                                  if(result == true){
+                                    setState(() {});
+                                  }
                               },
                               child:ContainerProduct(
                               screenHeight: screenHeight,

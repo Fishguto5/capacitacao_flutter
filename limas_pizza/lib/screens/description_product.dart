@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:limas_pizza/components/admin/navigation_bar_admin.dart';
 import 'package:limas_pizza/firebase/delete_product.dart';
-import 'package:limas_pizza/screens/menu.dart';
-import 'package:limas_pizza/screens/edit_product.dart'; 
+import 'package:limas_pizza/firebase/get_producuts.dart';
+import 'package:limas_pizza/screens/edit_product.dart';
 
 class DescriptionProduct extends StatefulWidget {
   final String tastePizza;
@@ -24,11 +24,21 @@ class DescriptionProduct extends StatefulWidget {
 }
 
 class _DescriptionProductState extends State<DescriptionProduct> {
+  List<dynamic> teste = [];
+  void carregarProdutos() async {
+  List<dynamic> produtos = await fecthproducts(widget.id);
+  setState(() {
+    teste = produtos; // Atualiza a lista quando os dados estiverem disponíveis
+  });
+}
   @override
+  void initState() {
+  super.initState();
+  carregarProdutos();
+}
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       bottomNavigationBar: NavigationBarAdmin(screenHeight: screenHeight, screenWidth: screenWidth),
       body: SingleChildScrollView( 
@@ -63,17 +73,15 @@ class _DescriptionProductState extends State<DescriptionProduct> {
 
               // Imagem da Pizza
               Center(
-                child: Image.asset(
-                  "images/pizza.png",
-                  height: screenWidth * 243/430,
-                  width: screenWidth *243/430,
-                ),
-              ),
-
+                child:Image.asset(
+                "images/pizza.png",
+                height: screenWidth * 243/430,
+                width: screenWidth *243/430,
+                )),
               SizedBox(height: 20),
 
               Text(
-                widget.tastePizza,
+                teste[0],
                 style: GoogleFonts.inter(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -83,7 +91,7 @@ class _DescriptionProductState extends State<DescriptionProduct> {
               SizedBox(height: 10),
 
               Text(
-                widget.descriptionPizza,
+                teste[1],
                 style: GoogleFonts.inter(
                   fontSize: 18,
                   fontWeight: FontWeight.w400,
@@ -95,7 +103,7 @@ class _DescriptionProductState extends State<DescriptionProduct> {
 
               // Tamanho da Pizza
               Text(
-                "Tamanho: ${widget.sizePizza}",
+                "Tamanho: ${teste[2]}",
                 style: GoogleFonts.inter(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
@@ -113,9 +121,7 @@ class _DescriptionProductState extends State<DescriptionProduct> {
                       onTap: (){
                         print("Icon delete funcinando");
                         delete(widget.id);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const MenuPage()));
+                        Navigator.pop(context, true);
                       },
                       child:Icon(Icons.delete,
                   size: 44*screenHeight/932,
@@ -126,10 +132,19 @@ class _DescriptionProductState extends State<DescriptionProduct> {
                       left: 270*screenWidth/430,
                     ) ,
                     child: GestureDetector(
-                      onTap: (){
+                      onTap: () async{
                         print("Icon edit está funcionando");
-                        Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => EditProduct(pizzaName: widget.tastePizza, pizzaDescription: widget.descriptionPizza, pizzaSize: widget.sizePizza, id: widget.id,)));
+                        final result = await Navigator.push(
+                          context,
+                        MaterialPageRoute(builder: (context) => EditProduct(
+                          pizzaName: teste[0], 
+                          pizzaDescription: teste[1], 
+                          pizzaSize: teste[2], id: widget.id,)));
+                        if (result == true){
+                          setState(() {
+                            carregarProdutos();
+                          });
+                        }
                       },
                       child:Icon(Icons.edit,
                       color: const Color.fromRGBO(0, 0, 0, 1),

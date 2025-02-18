@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:limas_pizza/screens/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:limas_pizza/screens/menu.dart';
-import 'package:limas_pizza/screens/edit_product.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); //  Inicializa o binding
-  await Firebase.initializeApp( //  Configura o Firebase
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp( 
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp()); // Inicia o app

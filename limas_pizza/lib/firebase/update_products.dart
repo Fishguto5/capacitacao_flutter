@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-void updateProduct(String id, String pizzaTaste, String pizzaDescription, String pizzaSize){
+Future <void> updateProduct(String id, String pizzaTaste, String pizzaDescription, String pizzaSize) async{
   var collection = FirebaseFirestore.instance.collection('products');
   collection.doc(id).update({
     'name':pizzaTaste,

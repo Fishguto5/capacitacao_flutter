@@ -1,1 +1,0 @@
-# capacitacao_flutter_2025
