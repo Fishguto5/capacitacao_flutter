@@ -84,7 +84,7 @@ class _EditProductState extends State<EditProduct> {
                ),
             const SizedBox(height: 15),
             Padding(padding: const EdgeInsets.only(left: 33),
-              child:SizedBox(width: 60,
+              child:SizedBox(width: 10,
                child:Text("Título",
                 style: GoogleFonts.inter(
                   fontSize: 20*screenHeight/932,
