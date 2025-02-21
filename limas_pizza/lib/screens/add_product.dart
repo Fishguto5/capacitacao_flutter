@@ -13,48 +13,31 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
-  File ? _image;
+  XFile ? _image;
 
   Future<void> _pickImage() async {
-  // Verifica a permissão correta dependendo da versão do Android
-  if (Platform.isAndroid) {
-    if (await Permission.photos.isDenied) {
-      await Permission.photos.request();
-    }
-    if (await Permission.storage.isDenied) {
-      await Permission.storage.request();
-    }
+  final ImagePicker picker = ImagePicker();
+
+  // Solicitar permissão de armazenamento
+  PermissionStatus permissionStatus = await Permission.photos.request();
+
+  // Verificar se a permissão foi concedida
+  if (permissionStatus.isGranted) {
+    try {
+  XFile? file = await picker.pickImage(source: ImageSource.gallery);
+  if (file != null) {
+    setState(() {
+      _image = file;
+    });
   }
-
-  // Abre a galeria apenas se a permissão foi concedida
-  if (await Permission.photos.isGranted || await Permission.storage.isGranted) {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-      });
-    } else {
-      print("Nenhuma imagem selecionada.");
-    }
+} catch (e) {
+  print("Erro ao selecionar imagem: $e");
+}
   } else {
-    print("Permissão negada. Não é possível acessar a galeria.");
+    // Caso a permissão não tenha sido concedida
+    print("Permissão não concedida para acessar a galeria");
   }
 }
-
-  // Uint8List? _imageBytes;
-
-  // Future<void> _pickImage2() async {
-  //   final XFile? pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-  //   if (pickedFile != null) {
-  //     final bytes = await pickedFile.readAsBytes();
-  //     setState(() {
-  //       _imageBytes = bytes;
-  //     });
-  //   }
-  // }
-
 
   @override
   Widget build(BuildContext context) {
@@ -94,31 +77,37 @@ class _AddProductState extends State<AddProduct> {
               children: [
                 Positioned(
                   child:Container(
-                  height:180*screenHeight/932 ,
-                  width: 180*screenHeight/932,
+                  height:190*screenHeight/932 ,
+                  width: 190*screenHeight/932,
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: Colors.grey,
                     ),
                     shape: BoxShape.circle,
                   ),
-                  child: IconButton(onPressed: _pickImage, 
-                  icon: const Icon(
+                  child: GestureDetector(
+                    onTap: () {
+                      print("Icon edit selecionado");
+                      _pickImage();
+                      
+                  } ,
+                  child: const Icon(
                     Icons.edit,
-                    color: Colors.grey)),
+                    color: Colors.grey
+                    )),
                 ),),
                 Positioned(
                   top: 3.5*screenHeight/932,
                   left: 5*screenWidth/430,
-                  child:CircleAvatar(
-                  radius: 80,
-                  backgroundColor: Colors.white,
-                  backgroundImage: _image != null ? FileImage(_image!) : null,
-                  
-                  child: _image == null
-                    ? Icon(Icons.image, size: 40, color: Colors.grey[700],)
-                    :null,
-                ))
+                  child:Center(
+                    child: CircleAvatar(
+                    radius: 85,
+                    backgroundColor: Colors.white,
+                    backgroundImage: _image != null ? FileImage(File(_image!.path)) : null,
+                    child: _image == null
+                      ? Icon(Icons.image, size: 40, color: Colors.grey[700],)
+                      :null,),
+                  ))
               ],
             ),
             Row(
@@ -133,7 +122,7 @@ class _AddProductState extends State<AddProduct> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 20),
+                  padding: const EdgeInsets.only(left: 20),
                   child: Text("Título",
                     style: GoogleFonts.inter(
                      fontSize: 20*screenHeight/932,

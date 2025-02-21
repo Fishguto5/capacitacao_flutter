@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:limas_pizza/screens/user/company_user.dart';
 
 class NavigationBarAdmin extends StatelessWidget {
   final double screenHeight;
@@ -33,7 +34,7 @@ class NavigationBarAdmin extends StatelessWidget {
               color: const Color.fromRGBO(205, 33, 42, 1),
               child:  Center(
                 child: Icon(
-                  Icons.spatial_tracking_outlined,
+                  Icons.post_add_outlined,
                   color: const Color.fromRGBO(255, 255, 255, 1),
                   size: screenHeight*40/932,
                 ),
@@ -76,10 +77,15 @@ class NavigationBarAdmin extends StatelessWidget {
               width: widthBar,
               color: const Color.fromRGBO(205, 33, 42, 1),
               child: Center(
-                child: Icon(
-                  Icons.menu_book_rounded,
-                  color: const Color.fromRGBO(255, 255, 255, 1),
-                  size: screenHeight*40/932,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> const CompanyUser()));
+                  },
+                  child: Icon(
+                    Icons.people_alt,
+                    color: const Color.fromRGBO(255, 255, 255, 1),
+                    size: screenHeight*40/932,
+                  ),
                 ),
               ),
             ),
@@ -89,7 +95,7 @@ class NavigationBarAdmin extends StatelessWidget {
               color: const Color.fromRGBO(205, 33, 42, 1),
               child: Center(
                 child: Icon(
-                  Icons.menu_book_rounded,
+                  Icons.request_quote,
                   color: const Color.fromRGBO(255, 255, 255, 1),
                   size: screenHeight*40/932,
                 ),

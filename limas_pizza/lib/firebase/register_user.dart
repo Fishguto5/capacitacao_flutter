@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 Future<void> ReGisterUser(String email, String password) async{ //função que registra o usuário no Firebase Authentication
   try {
-  UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+   await FirebaseAuth.instance.createUserWithEmailAndPassword(
     email: email,
     password: password
   );

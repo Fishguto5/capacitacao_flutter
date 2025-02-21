@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:limas_pizza/components/admin/navigation_bar_admin.dart';
 import 'package:limas_pizza/components/container_product.dart';
 import 'package:limas_pizza/firebase/get_producuts.dart';
+import 'package:limas_pizza/screens/add_product.dart';
 import 'package:limas_pizza/screens/description_product.dart';
  
 
@@ -145,11 +146,15 @@ class _MenuPageState extends State<MenuPage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
-                    child: 
-                    Icon(Icons.add,
-                        color:  const Color.fromRGBO(255, 255, 255, 1),
-                        size: 34*screenHeight/932,
-                        grade: 30,
+                    child:GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const AddProduct() ));
+                      },
+                      child: Icon(Icons.add,
+                          color:  const Color.fromRGBO(255, 255, 255, 1),
+                          size: 34*screenHeight/932,
+                          grade: 30,
+                      ),
                     ),
                   ),
                 ),
